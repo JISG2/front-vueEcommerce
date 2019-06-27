@@ -166,6 +166,7 @@ export default {
 
         }).then((reponse)=>{
           console.log(reponse)
+         
         }).catch( (e) => {
           console.log(e)
         })
