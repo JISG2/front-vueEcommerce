@@ -12,8 +12,14 @@
             <v-stepper-items>
                 <v-stepper-content step="1">
                     <v-form ref="form" v-model="valid" lazy-validation>
-                        <v-text-field v-model="name" :counter="10" :rules="nameRules" label="Especialidad" required></v-text-field>            
+                        <v-chip color="orange" text-color="white">{{element.nombrePizza}}<v-icon right>fas fa-utensils</v-icon></v-chip>
+
                         <v-select v-model="select" :items="items" :rules="[v => !!v || 'Item is required']" label="Seleccione el tamaño de la pizza" required></v-select>
+                    
+                         <v-chip label color="pink" text-color="white" v-if="select=='Chica'">Precio: ${{element.precioBase+70}}<v-icon right>fas fa-dollar-sign</v-icon></v-chip>
+                         <v-chip label color="pink" text-color="white" v-if="select=='Mediana'">Precio: ${{element.precioBase+100}}</v-chip>
+                         <v-chip label color="pink" text-color="white" v-if="select=='Grande'">Precio: ${{element.precioBase+140}}</v-chip>
+                         <br>
                         <v-btn color="primary" @click="e1 = 2"  :disabled="!valid">Continue</v-btn>
                         <v-btn flat color="error" to="/">Cancelar</v-btn>
                     </v-form> 
@@ -60,7 +66,6 @@
 export default {
    props: ['id'],
     data: () => ({
-      elements: [],
       element: {
         id: null,
         nombrePizza: null,
@@ -85,10 +90,9 @@ export default {
      
       select: null,
       items: [
-        'Chica - $120.00',
-        'Mediana - $180.00',
-        'Grande - $220.00',
-        'Mega - $280.00'
+        'Chica',
+        'Mediana',
+        'Grande'
       ],
       checkbox: false,
       e1: 0
@@ -98,10 +102,14 @@ export default {
     },
     methods: {
       getPizza(){
-        this.$axios.get(`http://127.0.0.1:3333/api/v1/pizzas`)
+        this.$axios.get(`http://127.0.0.1:3333/api/v1/pizzas/${parseInt(this.$route.params.id)}`)
         .then((response) => {
-          //console.log(response.data)
-          this.elements = response.data
+          console.log(response.data)
+          this.element.id = response.data.id
+          this.element.nombrePizza =  response.data.nombrePizza
+          this.element.descripcion = response.data.descripcion
+          this.element.imagen = response.data.imagen
+          this.element.precioBase = response.data.precioBase
         })
         .catch( (e) => {
           console.log(e)
