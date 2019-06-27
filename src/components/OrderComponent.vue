@@ -1,5 +1,4 @@
 <template>
-    <div>
         <v-stepper v-model="e1">
             <v-stepper-header>
             <v-stepper-step :complete="e1 > 1" step="1">Elige tu pizza</v-stepper-step>
@@ -47,17 +46,26 @@
                             </div>
                         </div>
                         </v-card-title>
+                         <!--div ref="card"></div-->
                     </v-card>
                     <v-btn color="primary" @click="e1 = 1">Confirmar pedido</v-btn>
                     <v-btn flat color="error" to="/">Cancelar</v-btn>
                 </v-stepper-content>
             </v-stepper-items>
         </v-stepper>
-    </div>
+    
 </template>
 
 <script lang="ts">
+    //let stripe = Stripe(`pk_test_l5Lgd9sjHUXFMGNkxltOGpvr00CXjGXixV`),
+    //elements = stripe.elements(),
+    //card = undefined;
 export default {
+    /*mounted: function () {
+    card = elements.create('card',{hidePostalCode: true});
+    card.mount(this.$refs.card);
+    
+    },*/
    props: ['id'],
     data: () => ({
       element: {
@@ -99,7 +107,18 @@ export default {
       },
       resetValidation () {
         this.$refs.form.resetValidation()
-      }*/
+      }
+      purchase () {
+        stripe.createToken(card).then(function(result) {
+          console.log("token: ",result)
+          if (result.error) {
+            self.hasCardErrors = true;
+            self.$forceUpdate(); // Forcing the DOM to update so the Stripe Element can update.
+            return;
+          }
+        });
+    }*/
+
     }
   }
 </script>
