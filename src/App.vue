@@ -6,8 +6,8 @@
        <v-btn flat to="/" target="=_blank"><span class="mr-2">UPizza</span></v-btn>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn flat href="https://github.com/vuetifyjs/vuetify/releases/latest" target="_blank">
-        <span class="mr-2" :to="{name:'historial'}">Historial</span>
+      <v-btn flat  :to="{name:'historial'}">
+        <span class="mr-2">Historial</span>
       </v-btn>
     </v-toolbar>
 
