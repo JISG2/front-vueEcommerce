@@ -51,7 +51,7 @@
                                   <v-chip label color="blue" text-color="white" v-if="select=='Grande'">{{element.precioBase+140}}</v-chip>
 
                                 <p>Dirección: {{this.direccion}} </p>
-                                <p>Nombre de cliente: Jesús Israel Santiago Gutiérrez</p>
+                                <p>Nombre de cliente: {{this.name}}</p>
                                 
                             </div>
                         </div>
@@ -161,7 +161,8 @@ export default {
           tokenPago: this.tokenPago,
           fecha: this.date,
           cantidadPizzas: 1,
-          totalPago: pago
+          totalPago: pago,
+          pizza: this.element.nombrePizza
 
         }).then((reponse)=>{
           console.log(reponse)
