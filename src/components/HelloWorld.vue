@@ -1,7 +1,7 @@
 <template>
   <v-container>
-     <v-layout row>
-        <v-flex xs12 sm3 pa-3 v-for='element in elements' :key='element.id' :element='element'>
+     <v-layout row wrap>
+        <v-flex xs12 mb3 sm3 pa-3 v-for='element in elements' :key='element.id' :element='element'>
           <v-card>
             <v-img v-bind:src=element.imagen height="200px"></v-img>
             <v-card-title primary-title>
@@ -20,7 +20,7 @@
             </v-card-actions>
             <v-slide-y-transition>
               <v-card-text v-show="show">
-                I'm a thing. But, like most politicians, he promised more than he could deliver. You won't have time for sleeping, soldier, not with all the bed making you'll be doing. Then we'll go with that data file! Hey, you add a one and two zeros to that or we walk! You're going to do his laundry? I've got to find a way to escape.
+                {{element.descripcion}}
               </v-card-text>
             </v-slide-y-transition>
          </v-card>
