@@ -7,7 +7,7 @@
             <v-card-title primary-title>
               <div>
                 <div class="headline">{{element.nombre}}</div>
-                <span class="green--text">${{element.precio}}  {{array[index]}} </span>
+                <span class="green--text">${{element.precio}} </span>
               </div>
               <v-btn flat color="blue" :to="{name:'order',params: {id: element.id}}">Ordenar</v-btn>
             </v-card-title>
@@ -15,7 +15,7 @@
             <v-card-actions>
             <v-expansion-panel>
     <v-expansion-panel-content
-      :key="index">
+      :key="element.id">
       <template v-slot:header>
         <span flat color="blue">Descripcion</span>
         <div></div>
@@ -39,7 +39,6 @@
       return {
       show: false,
       elements: [],
-      array:[],
       element: {
         id: null,
         nombrePizza: null,
@@ -60,22 +59,12 @@
         .then(response => {
           console.log(response.data)
           this.elements = response.data
-          for (let index = 0; index < this.elements.length; index++) {
-            this.array.push(false)
-          }
-          console.log(this.array)
         })
         .catch( e => {
           console.log(e)
         })
       },
 
-    mostrar(index){
-     array[index]=!array[index];
-      //console.log("dentro: ",this.array[index], " index:",index)
-     // return this.array
-      console.log(array)
-    }
     }
   }
 </script>
