@@ -53,8 +53,9 @@
                             </div>
                         </div>
                         </v-card-title>
+                                  <div ref="card"></div>
                     </v-card>
-                    <v-btn color="primary" @click="e1 = 1">Confirmar pedido</v-btn>
+                    <v-btn color="primary" @click="purchase()">Pagar</v-btn>
                     <v-btn flat color="error" to="/">Cancelar</v-btn>
                 </v-stepper-content>
             </v-stepper-items>
@@ -62,8 +63,16 @@
     </div>
 </template>
 
-<script>
+<script >
+  let stripe = Stripe(`key_stripe`),
+    elements = stripe.elements(),
+    card = undefined;
 export default {
+      mounted: function () {
+    card = elements.create('card',{hidePostalCode: true});
+    card.mount(this.$refs.card);
+    
+    },
    props: ['id'],
     data: () => ({
       element: {
@@ -76,18 +85,14 @@ export default {
       valid: true,
       name: '',
       nameRules: [
-        v => !!v || 'Name is required',
-        v => (v && v.length <= 10) || 'Name must be less than 10 characters'
+        (v) => !!v || 'Name is required',
+        (v) => (v && v.length <= 10) || 'Name must be less than 10 characters'
       ],
       email: '',
       emailRules: [
-        v => !!v || 'E-mail is required',
-        v => /.+@.+/.test(v) || 'E-mail must be valid'
-      ],
-      number: '',
-      direccion:'',
-      referencias: '',
-     
+        (v) => !!v || 'E-mail is required',
+        (v) => /.+@.+/.test(v) || 'E-mail must be valid'
+      ],number:'',direccion:'',referencias:'',
       select: null,
       items: [
         'Chica',
@@ -97,9 +102,6 @@ export default {
       checkbox: false,
       e1: 0
     }),
-    mounted () {
-      this.getPizza()
-    },
     methods: {
       getPizza(){
         this.$axios.get(`http://127.0.0.1:3333/api/v1/pizzas/${parseInt(this.$route.params.id)}`)
@@ -115,6 +117,17 @@ export default {
           console.log(e)
         })
       }
+      ,
+            purchase () {
+        stripe.createToken(card).then(function(result) {
+          console.log("resultado: ",result)
+          if (result.error) {
+            self.hasCardErrors = true;
+            self.$forceUpdate(); // Forcing the DOM to update so the Stripe Element can update.
+            return;
+          }
+        });
+    }
     }
   }
 </script>
