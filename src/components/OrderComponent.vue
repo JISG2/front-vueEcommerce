@@ -58,7 +58,15 @@
 
 <script lang="ts">
 export default {
+   props: ['id'],
     data: () => ({
+      element: {
+        id: null,
+        nombrePizza: null,
+        descripcion: null,
+        imagen: null,
+        precioBase: null
+      },
       valid: true,
       name: '',
       nameRules: [
