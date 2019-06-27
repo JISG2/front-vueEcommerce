@@ -1,4 +1,5 @@
 <template>
+    <div>
         <v-stepper v-model="e1">
             <v-stepper-header>
             <v-stepper-step :complete="e1 > 1" step="1">Elige tu pizza</v-stepper-step>
@@ -46,26 +47,26 @@
                             </div>
                         </div>
                         </v-card-title>
-                         <!--div ref="card"></div-->
+                                  <div ref="card"></div>
                     </v-card>
-                    <v-btn color="primary" @click="e1 = 1">Confirmar pedido</v-btn>
+                    <v-btn color="primary" @click="purchase()">Pagar</v-btn>
                     <v-btn flat color="error" to="/">Cancelar</v-btn>
                 </v-stepper-content>
             </v-stepper-items>
         </v-stepper>
-    
+    </div>
 </template>
 
-<script lang="ts">
-    //let stripe = Stripe(`pk_test_l5Lgd9sjHUXFMGNkxltOGpvr00CXjGXixV`),
-    //elements = stripe.elements(),
-    //card = undefined;
+<script >
+  let stripe = Stripe(`pk_test_l5Lgd9sjHUXFMGNkxltOGpvr00CXjGXixV`),
+    elements = stripe.elements(),
+    card = undefined;
 export default {
-    /*mounted: function () {
+      mounted: function () {
     card = elements.create('card',{hidePostalCode: true});
     card.mount(this.$refs.card);
     
-    },*/
+    },
    props: ['id'],
     data: () => ({
       element: {
@@ -78,14 +79,14 @@ export default {
       valid: true,
       name: '',
       nameRules: [
-        (v:any) => !!v || 'Name is required',
-        (v:any) => (v && v.length <= 10) || 'Name must be less than 10 characters'
+        (v) => !!v || 'Name is required',
+        (v) => (v && v.length <= 10) || 'Name must be less than 10 characters'
       ],
       email: '',
       emailRules: [
-        (v:any) => !!v || 'E-mail is required',
-        (v:any) => /.+@.+/.test(v) || 'E-mail must be valid'
-      ],
+        (v) => !!v || 'E-mail is required',
+        (v) => /.+@.+/.test(v) || 'E-mail must be valid'
+      ],number:'',direccion:'',referencias:'',
       select: null,
       items: [
         'Chica - $120.00',
@@ -97,28 +98,27 @@ export default {
       e1: 0
     }),
     methods: {
-      /*validate () {
-        if (this.$refs.form.validate()) {
-          this.snackbar = true
-        }
-      },
-      reset () {
-        this.$refs.form.reset()
-      },
-      resetValidation () {
-        this.$refs.form.resetValidation()
+      getPizza(){
+        this.$axios.get(`http://127.0.0.1:3333/api/v1/pizzas`)
+        .then((response) => {
+          //console.log(response.data)
+          this.elements = response.data
+        })
+        .catch( (e) => {
+          console.log(e)
+        })
       }
-      purchase () {
+      ,
+            purchase () {
         stripe.createToken(card).then(function(result) {
-          console.log("token: ",result)
+          console.log("resultado: ",result)
           if (result.error) {
             self.hasCardErrors = true;
             self.$forceUpdate(); // Forcing the DOM to update so the Stripe Element can update.
             return;
           }
         });
-    }*/
-
+    }
     }
   }
 </script>
