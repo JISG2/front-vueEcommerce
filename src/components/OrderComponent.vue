@@ -56,10 +56,11 @@
     </div>
 </template>
 
-<script lang="ts">
+<script>
 export default {
    props: ['id'],
     data: () => ({
+      elements: [],
       element: {
         id: null,
         nombrePizza: null,
@@ -70,14 +71,18 @@ export default {
       valid: true,
       name: '',
       nameRules: [
-        (v:any) => !!v || 'Name is required',
-        (v:any) => (v && v.length <= 10) || 'Name must be less than 10 characters'
+        v => !!v || 'Name is required',
+        v => (v && v.length <= 10) || 'Name must be less than 10 characters'
       ],
       email: '',
       emailRules: [
-        (v:any) => !!v || 'E-mail is required',
-        (v:any) => /.+@.+/.test(v) || 'E-mail must be valid'
+        v => !!v || 'E-mail is required',
+        v => /.+@.+/.test(v) || 'E-mail must be valid'
       ],
+      number: '',
+      direccion:'',
+      referencias: '',
+     
       select: null,
       items: [
         'Chica - $120.00',
@@ -88,18 +93,20 @@ export default {
       checkbox: false,
       e1: 0
     }),
+    mounted () {
+      this.getPizza()
+    },
     methods: {
-      /*validate () {
-        if (this.$refs.form.validate()) {
-          this.snackbar = true
-        }
-      },
-      reset () {
-        this.$refs.form.reset()
-      },
-      resetValidation () {
-        this.$refs.form.resetValidation()
-      }*/
+      getPizza(){
+        this.$axios.get(`http://127.0.0.1:3333/api/v1/pizzas`)
+        .then((response) => {
+          //console.log(response.data)
+          this.elements = response.data
+        })
+        .catch( (e) => {
+          console.log(e)
+        })
+      }
     }
   }
 </script>
