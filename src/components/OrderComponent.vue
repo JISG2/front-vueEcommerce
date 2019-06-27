@@ -58,7 +58,7 @@
 </template>
 
 <script >
-  let stripe = Stripe(`pk_test_l5Lgd9sjHUXFMGNkxltOGpvr00CXjGXixV`),
+  let stripe = Stripe(`key_stripe`),
     elements = stripe.elements(),
     card = undefined;
 export default {
