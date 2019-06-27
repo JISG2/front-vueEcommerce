@@ -54,6 +54,7 @@
                                     <v-chip label color="blue" text-color="white" v-if="select=='Mediana'">{{element.precioBase+100}}</v-chip>
                                     <v-chip label color="blue" text-color="white" v-if="select=='Grande'">{{element.precioBase+140}}</v-chip>
 
+<<<<<<< HEAD
                                   <p>Dirección: {{this.direccion}} </p>
                                   <p>Nombre de cliente: {{name}}</p>
                                   <br>
@@ -71,6 +72,35 @@
         </v-flex>
       </v-layout> 
     </v-container>
+=======
+                <v-stepper-content step="3">
+                    <v-card>
+                        <v-img v-bind:src=element.imagen height="200px"></v-img>
+                        <v-card-title primary-title>
+                        <div>
+                            <h3 class="headline mb-0">Resumen de pedido</h3>
+                            <div> 
+                                <h4>{{element.nombrePizza}}</h4>
+                                <p>Total a pagar: </p>
+                                  <v-chip label color="blue"  text-color="white" v-if="select=='Chica'">{{element.precioBase+70}}</v-chip>
+                                  <v-chip label color="blue" text-color="white" v-if="select=='Mediana'">{{element.precioBase+100}}</v-chip>
+                                  <v-chip label color="blue" text-color="white" v-if="select=='Grande'">{{element.precioBase+140}}</v-chip>
+
+                                <p>Dirección: {{this.direccion}} </p>
+                                <p>Nombre de cliente: {{this.name}}</p>
+                                
+                            </div>
+                        </div>
+                        </v-card-title>
+                                  <div ref="card"></div>
+                    </v-card>
+                    <v-btn color="primary" @click="purchase()">Pagar</v-btn>
+                    <v-btn flat color="error" to="/">Cancelar</v-btn>
+                </v-stepper-content>
+            </v-stepper-items>
+        </v-stepper>
+    </div>
+>>>>>>> 8f057ba52b1d60b7d0c73935a979e070bf04ddb4
 </template>
 
 <script >
@@ -168,7 +198,8 @@ export default {
           tokenPago: this.tokenPago,
           fecha: this.date,
           cantidadPizzas: 1,
-          totalPago: pago
+          totalPago: pago,
+          pizza: this.element.nombrePizza
 
         }).then((reponse)=>{
           console.log(reponse)
