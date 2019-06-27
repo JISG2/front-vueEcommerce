@@ -1,8 +1,7 @@
 <template>
   <v-container>
      <v-layout row wrap>
-        <v-flex xs12 md3 pa-3 v-for='(element,index) in elements' :key='element.id' :element='element'>
-         
+        <v-flex xs12 mb3 sm3 pa-3 v-for='element in elements' :key='element.id' :element='element'>
           <v-card>
             <v-img v-bind:src=element.imagen height="200px"></v-img>
             <v-card-title primary-title>
