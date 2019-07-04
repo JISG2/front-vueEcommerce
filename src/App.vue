@@ -6,6 +6,19 @@
        <v-btn flat to="/" target="=_blank"><span class="mr-2">UPizza</span></v-btn>
       </v-toolbar-title>
       <v-spacer></v-spacer>
+    <v-badge left>
+      <template v-slot:badge>
+        <span>{{items}}</span>
+      </template>
+      <v-btn style="color: transparent" :to="{name:'carro'}">
+      <v-icon
+        large
+        color="grey lighten-1"
+      >
+        shopping_cart
+      </v-icon>
+      </v-btn>
+    </v-badge>
       <v-btn flat  :to="{name:'historial'}">
         <span class="mr-2">Historial</span>
       </v-btn>
@@ -21,14 +34,27 @@
 import HelloWorld from './components/HelloWorld'
 
 export default {
+  
   name: 'App',
   components: {
     HelloWorld
   },
+   computed: {
+    itemsInCart(){
+      let cart = this.$store.getters.cartProducts;
+      return cart;
+    }
+  },
   data () {
+
     return {
       //
+      cont: 0,
+      get items() {
+      	return localStorage.getItem('carro').length || 0;
+      }
     }
-  }
+  },methods:{
+  },
 }
 </script>

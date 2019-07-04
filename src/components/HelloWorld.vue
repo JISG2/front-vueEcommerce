@@ -4,6 +4,9 @@
         <v-flex xs12 mb4 sm4 pa-3 v-for='element in elements' :key='element.id' :element='element'>
           <v-card class="elevation-4">
             <v-img v-bind:src=element.imagen height="200px"></v-img>
+            <v-btn color="primary" @click="addPizza(element.id,element.nombrePizza,element.imagen)" fab small dark>
+              <v-icon>add</v-icon>
+            </v-btn>
             <v-card-title primary-title>
               <div row>
                 <div>
@@ -38,18 +41,26 @@
 </template>
 
 <script>
-  
+  import { mapGetters } from 'vuex';
+  var    carrito=[];
   export default {
+
     data (){
       return {
       show: false,
       elements: [],
+      //carrito:[],
       element: {
         id: null,
         nombrePizza: null,
         descripcion: null,
         imagen: null,
         precioBase: null
+      },
+      carro:{
+        id: null,
+        img: null,
+        nombre: null
       }
       }
 
@@ -60,7 +71,7 @@
     },
     methods: {
       getElements () {
-        this.$axios.get(`http://127.0.0.1:3333/api/v1/pizzas`)
+        this.$axios.get(`https://api-pizza-adonis.herokuapp.com/api/v1/pizzas`)
         .then(response => {
           console.log(response.data)
           this.elements = response.data
@@ -69,8 +80,25 @@
           console.log(e)
         })
       },
+      addPizza(id,nombre,img){
+        this.carro.id = id;
+        this.carro.img = img;
+        this.carro.nombre= nombre;
+        carrito.push(this.carro);
+        console.log("add: ",carrito)
+        this.saveCarrito();
+
+      },
+      saveCarrito() {
+      const parsed = JSON.stringify(carrito);
+      localStorage.setItem('carro', parsed);
+      let car = JSON.parse(localStorage.getItem('carro'));
+      console.log("carro:",carrito.length)
+      console.log("car",car.length);
+    }
 
     }
+
   }
 </script>
 

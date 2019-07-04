@@ -38,7 +38,7 @@
     },
     methods: {
       getElements () {
-      this.$axios.get(`http://127.0.0.1:3333/api/v1/ordenes`)
+      this.$axios.get(`https://api-pizza-adonis.herokuapp.com/api/v1/ordenes`)
       .then(response => {
         console.log(response.data)
         this.elements = response.data

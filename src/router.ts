@@ -30,6 +30,11 @@ export default new Router({
       path: '/historial',
       name: 'historial',
       component: () => import('./views/Historial.vue')
+    },
+    {
+      path: '/carro',
+      name: 'carro',
+      component: () => import('./views/Carro.vue')
     }
   ],
 });

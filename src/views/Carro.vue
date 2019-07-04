@@ -1,17 +1,17 @@
 <template>
     <div>
-        <h1 style="text-aling:center">Historial</h1>
-        <HistorialComponent/>
+        <h1 style="text-aling:center">Carro de compras</h1>
+        <CarroComponent/>
     </div>
 </template>
 
 
 <script lang="ts">
 import {Vue,Component} from 'vue-property-decorator';
-import HistorialComponent from '@/components/HistorialComponent.vue'
+import CarroComponent from '@/components/CarroComponent.vue'
 @Component({
 components: {
-    HistorialComponent,
+    CarroComponent,
   },
 })
 
