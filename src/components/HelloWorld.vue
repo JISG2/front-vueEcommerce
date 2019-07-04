@@ -39,14 +39,14 @@
 
 <script>
   import { mapGetters } from 'vuex';
-  var    carrito=[];
+
   export default {
 
     data (){
       return {
       show: false,
       elements: [],
-      //carrito:[],
+      carrito:[],
       element: {
         id: null,
         nombrePizza: null,
@@ -65,6 +65,7 @@
     },
     created () {
       this.getElements()
+      this.getStorage()
     },
     methods: {
       getElements () {
@@ -81,17 +82,24 @@
         this.carro.id = id;
         this.carro.img = img;
         this.carro.nombre= nombre;
-        carrito.push(this.carro);
-        console.log("add: ",carrito)
+        this.carrito.push(this.carro);
+        console.log("add: ",this.carrito)
         this.saveCarrito();
 
       },
+      getStorage(){
+              let car = JSON.parse(localStorage.getItem('carro'));
+              this.carrito = car
+              this.saveCarrito()
+      console.log("storage:",car)
+
+      },
       saveCarrito() {
-      const parsed = JSON.stringify(carrito);
+      const parsed = JSON.stringify(this.carrito);
       localStorage.setItem('carro', parsed);
       let car = JSON.parse(localStorage.getItem('carro'));
-      console.log("carro:",carrito.length)
-      console.log("car",car.length);
+      console.log("carro:",this.carrito.length)
+ 
     }
 
     }

@@ -50,12 +50,14 @@
       },
     removePizza(x) {
       this.elements.splice(x, 1);
+      console.log("ELEMENTOS:", this.elements)
       this.saveCarrito();
     },
     saveCarrito() {
       const parsed = JSON.stringify(this.elements);
       localStorage.setItem('carro', parsed);
-      //this.elements = JSON.parse(localStorage.getItem('carro'));
+      let save = JSON.parse(localStorage.getItem('carro'));
+      console.log("local: ",save)
 
     },
     orden(idPizza,i){
