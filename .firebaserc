@@ -1,5 +1,9 @@
 {
   "projects": {
+<<<<<<< HEAD
     "default": "pwa-hosting-4d5ef"
+=======
+    "default": "pizzasnotificacioneshosting"
+>>>>>>> 13aa9fcc02258be4e0913f2f8b57f7e3ac1fee6c
   }
 }
