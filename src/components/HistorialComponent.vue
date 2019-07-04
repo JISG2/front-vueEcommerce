@@ -1,4 +1,5 @@
 <template>
+<v-container>
   <div>
     <v-data-table :headers="headers" :items="elements" class="elevation-1">
       <template v-slot:items="props">
@@ -10,8 +11,14 @@
         <td class="text-xs-left">{{ props.item.totalPago }}</td>
         <td class="text-xs-left">{{ props.item.fecha }}</td>
       </template>
+      <template v-slot:footer>
+      <td :colspan="headers.length" >
+        <strong>Registro de ordenes de pizzeria</strong>
+      </td>
+    </template>
     </v-data-table>
   </div>
+</v-container>
 </template>
 
 <script >

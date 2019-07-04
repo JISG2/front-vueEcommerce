@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>Historial</h1>
+        <h1>Historial de entregas de Pizzas</h1>
         <HistorialComponent/>
     </div>
 </template>

@@ -8,25 +8,22 @@
               <div row>
                 <div>
                   <div class="headline">{{element.nombrePizza}}</div>
-                  <span class="green--text">${{element.precioBase}} </span>
+                 <span class="green--text">Tamaños: Chica Mediana Grande </span>
                 </div>
-                
+                <v-btn flat color="blue" :to="{name:'order',params: {id: element.id}}">Ordenar</v-btn>
               </div>
               
             </v-card-title>
 
             <v-card-actions>
             <v-expansion-panel focusable>
-    <v-expansion-panel-content
-      :key="element.id">
+    <v-expansion-panel-content :key="element.id">
       <template v-slot:header>
-        <span flat color="blue">Descripcion</span>
-        <!-- <div></div> -->
+        <span flat color="blue">Descripción</span>
       </template>
       <v-card>
         <v-card-text>{{element.descripcion}}</v-card-text>
         <br>
-        <v-btn flat color="blue" :to="{name:'order',params: {id: element.id}}">Ordenar</v-btn>
       </v-card>
     </v-expansion-panel-content>
   </v-expansion-panel>
@@ -60,7 +57,7 @@
     },
     methods: {
       getElements () {
-        this.$axios.get(`http://127.0.0.1:3333/api/v1/pizzas`)
+        this.$axios.get(`https://api-pizza-adonis.herokuapp.com/api/v1/pizzas`)
         .then(response => {
           console.log(response.data)
           this.elements = response.data
